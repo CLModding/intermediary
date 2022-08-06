@@ -18,4 +18,5 @@ jobs:
 
       - name: Run update check script
         run: |
+          chmod +x ./scripts/update_check.sh
           ./scripts/update_check.sh
