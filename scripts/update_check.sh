@@ -8,26 +8,19 @@ UPDATER_URL="https://updater.craftlandia.com.br/v3/updates.json"
 UPDATER_FILE="$(curl --silent --insecure -s $UPDATER_URL)"
 NEW_HASH="$(jq '.files.Farewell | .[] | select(contains({file: "1.5.2-CraftLandia.jar"})) | .hash' <<<"${UPDATER_FILE}" | sed 's/"//g')"
 
-# if GITHUB_STEP_SUMMARY is set
-if [ -n "$GITHUB_STEP_SUMMARY" ]; then
-
-    {
-        echo "# CraftLandia Update"
-        echo ""
-    } >"$GITHUB_STEP_SUMMARY"
+# if UPDATE_WEB_HOOK is set
+if [ -n "$UPDATE_WEB_HOOK" ]; then
 
     # if intermediary of hash exists, assume the version is up to date
     if [ -f "intermediary/${NEW_HASH}.tiny" ]; then
-        {
-            echo "Up to date!"
-        } >>"$GITHUB_STEP_SUMMARY"
-        exit 0
+        curl "$UPDATE_WEB_HOOK" \
+            -X 'PATCH' \
+            --data-raw '{"content":null,"embeds":[{"title":"CraftLandia Farewell - AntiHack Version","description":"AntiHack definitions is up-to-date.","color":2752256,"thumbnail":{"url":"https://i.imgur.com/Kgg9vCJ.png"}}],"username":"CLModding - Update Checker","avatar_url":"https://i.imgur.com/Kgg9vCJ.png","attachments":[]}' \
+            --compressed
     else
-        {
-            echo "| New version Hash |"
-            echo "| :--------------: |"
-            echo "| $NEW_HASH |"
-        } >>"$GITHUB_STEP_SUMMARY"
-        exit 1
+        curl :"$UPDATE_WEB_HOOK" \
+            -X 'PATCH' \
+            --data-raw "{\"content\":\"<@318033838330609665>\",\"embeds\":[{\"title\":\"CraftLandia Farewell - AntiHack Version\",\"description\":\"AntiHack definitions requires an update\u0021\",\"color\":16711680,\"fields\":[{\"name\":\"New Version Hash\",\"value\":\"$NEW_HASH\"}],\"thumbnail\":{\"url\":\"https://i.imgur.com/Kgg9vCJ.png\"}}],\"username\":\"CLModding - Update Checker\",\"avatar_url\":\"https://i.imgur.com/Kgg9vCJ.png\",\"attachments\":[]}" \
+            --compressed
     fi
 fi
