@@ -17,6 +17,8 @@ jobs:
         run: sudo apt-get install jq
 
       - name: Run update check script
+        env:
+          UPDATE_WEB_HOOK: ${{secrets.UPDATE_WEB_HOOK}}
         run: |
           chmod +x ./scripts/update_check.sh
           ./scripts/update_check.sh
