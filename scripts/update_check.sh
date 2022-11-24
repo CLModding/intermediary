@@ -11,7 +11,7 @@ NEW_HASH="$(jq '.files.Farewell | .[] | select(contains({file: "1.5.2-CraftLandi
 # if intermediary of hash exists, assume the version is up to date
 if [ -f "intermediary/${NEW_HASH}.tiny" ]; then
 echo "Amogus"
-    curl "https://discord.com/api/v10/webhooks/1006269909275267082/BCqilcwkVfl6FNCqZrskklf7Qe97LiEsV1AvZwsl10CkoMRseSbGq2FIi0red0xrfk_V/messages/1006962159537897602" \
+    curl "$UPDATE_WEB_HOOK" \
         -X 'PATCH' \
         -H 'Content-Type: application/json' \
         --data-raw '{"content":null,"embeds":[{"title":"CraftLandia Farewell - AntiHack Version","description":"AntiHack definitions are up-to-date.","color":2752256,"thumbnail":{"url":"https://i.imgur.com/Kgg9vCJ.png"}}],"username":"CLModding - Update Checker","avatar_url":"https://i.imgur.com/Kgg9vCJ.png","attachments":[]}' \
