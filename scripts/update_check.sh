@@ -6,7 +6,7 @@ UPDATER_URL="https://updater.craftlandia.com.br/v3/updates.json"
 
 # CODE
 UPDATER_FILE="$(curl --silent --insecure -s $UPDATER_URL)"
-NEW_HASH="$(jq '.files.Farewell | .[] | select(contains({file: "1.5.2-CraftLandia.jar"})) | .hash' <<<"${UPDATER_FILE}" | sed 's/"//g')"
+NEW_HASH="$(jq '.files."1.5" | .[] | select(contains({file: "1.5.2-CraftLandia.jar"})) | .hash' <<<"${UPDATER_FILE}" | sed 's/"//g')"
 
 # if intermediary of hash exists, assume the version is up to date
 if [ -f "intermediary/${NEW_HASH}.tiny" ]; then
