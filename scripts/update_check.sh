@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# Check if environment variable is set, if so, show it
-
 # If CLMODDING_JARS is set
 if [ -n "$CLMODDING_JARS" ]; then
     # If jars directory does not exist, clone it
@@ -25,12 +23,13 @@ fi
 
 # Setup ntfy CLI if not present
 # First, check if ntfy is installed
-if ! command -v ntfy &> /dev/null
-then
-    wget https://github.com/binwiederhier/ntfy/releases/download/v2.7.0/ntfy_2.7.0_linux_amd64.tar.gz
-    tar zxvf ntfy_2.7.0_linux_amd64.tar.gz
-    sudo cp -a ntfy_2.7.0_linux_amd64/ntfy /usr/local/bin/ntfy
-fi
+# if ! command -v ntfy &> /dev/null
+# then
+#     wget https://github.com/binwiederhier/ntfy/releases/download/v2.7.0/ntfy_2.7.0_linux_amd64.tar.gz
+#     tar zxvf ntfy_2.7.0_linux_amd64.tar.gz
+#     sudo cp -a ntfy_2.7.0_linux_amd64/ntfy /usr/local/bin/ntfy
+# fi
+
 # Constants
 UPDATER_URL="https://updater.craftlandia.com.br/v3/updates.json"
 
