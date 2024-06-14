@@ -25,6 +25,7 @@ jobs:
           UPDATE_WEB_HOOK: ${{ secrets.UPDATE_WEB_HOOK }}
           CLMODDING_JARS: ${{ secrets.CLMODDING_JARS_URL }}
         run: |
+          sudo apt-get update && sudo apt-get install -y dos2unix
           chmod +x ./scripts/update_check.sh
           ./scripts/update_check.sh
           
