@@ -23,7 +23,7 @@ jobs:
       - name: Run update check script
         env:
           UPDATE_WEB_HOOK: ${{ secrets.UPDATE_WEB_HOOK }}
-          CLMODDING_JARS: ${{ secrets.CLMODDING_JARS }}
+          CLMODDING_JARS: ${{ secrets.CLMODDING_JARS_URL }}
         run: |
           chmod +x ./scripts/update_check.sh
           ./scripts/update_check.sh
