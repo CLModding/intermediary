@@ -44,13 +44,13 @@ if [ -f "intermediary/${NEW_HASH}.tiny" ]; then
         -X 'PATCH' \
         -H 'Content-Type: application/json' \
         --data-raw '{"content":null,"embeds":[{"title":"CraftLandia Farewell - AntiHack Version","description":"AntiHack definitions are up-to-date.","color":2752256,"thumbnail":{"url":"https://i.imgur.com/Kgg9vCJ.png"}}],"username":"CLModding - Update Checker","avatar_url":"https://i.imgur.com/Kgg9vCJ.png","attachments":[]}' \
-        --compressed
+        --compressed > /dev/null
 else
     curl "$UPDATE_WEB_HOOK" \
         -X 'PATCH' \
         -H 'Content-Type: application/json' \
         --data-raw "{\"content\":\"<@318033838330609665>\",\"embeds\":[{\"title\":\"CraftLandia Farewell - AntiHack Version\",\"description\":\"AntiHack definitions require an update\u0021\",\"color\":16711680,\"fields\":[{\"name\":\"New Version Hash\",\"value\":\"$NEW_HASH\"}],\"thumbnail\":{\"url\":\"https://i.imgur.com/Kgg9vCJ.png\"}}],\"username\":\"CLModding - Update Checker\",\"avatar_url\":\"https://i.imgur.com/Kgg9vCJ.png\",\"attachments\":[]}" \
-        --compressed
+        --compressed > /dev/null
 fi
 
 # Write unix timestamp to file
