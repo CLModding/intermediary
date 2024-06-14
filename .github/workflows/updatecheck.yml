@@ -16,9 +16,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+            ssh-private-key: ${{ secrets.CLMODDING_JARS }}
+            
       - name: Run update check script
         env:
           UPDATE_WEB_HOOK: ${{ secrets.UPDATE_WEB_HOOK }}
+          CLMODDING_JARS: ${{ secrets.CLMODDING_JARS }}
         run: |
           chmod +x ./scripts/update_check.sh
           ./scripts/update_check.sh
+          
+      - name: Remove work folder
+        run: rm -rf ./jars
+      
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          repository: .
+      
