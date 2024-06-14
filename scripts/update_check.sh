@@ -10,7 +10,7 @@ if [ -n "$CLMODDING_JARS" ]; then
         rm -rf ./jars
     fi
     
-    git clone ../jars ./jars
+    git clone "$CLMODDING_JARS" ./jars
     
     if [ -f "./jars/latest.sh" ]; then
         # Change directory to jars
